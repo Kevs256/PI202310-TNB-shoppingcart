@@ -7,6 +7,7 @@ class shoppingCartRouter {
 
     constructor(){
         this.router = Router();
+        
         this.config();
     }
 
