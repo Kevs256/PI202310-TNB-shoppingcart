@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-//import reportsRouter from './router/reports.router.js';
+import shoppingCartRouter from './router/shoppingCart.router.js';
 
 class Server{
 
@@ -26,8 +26,7 @@ class Server{
     }
 
     private routes(){
-        //this.app.use(cardsRouter.router);
-
+        this.app.use(shoppingCartRouter.router);
     }
 
     private start(){
