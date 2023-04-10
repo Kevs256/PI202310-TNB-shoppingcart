@@ -12,7 +12,8 @@ class shoppingCartRouter {
     }
 
     private config(){
-        this.router.route('/shoppingCart/add').post(shoppingCartController.insertShoppingCart); 
+        this.router.route('/shoppingCart/:id_user').get(shoppingCartController.getOrderById);
+        this.router.route('/shoppingCart/add').put(shoppingCartController.setQuantityShoppingCart); 
     }
 
 }

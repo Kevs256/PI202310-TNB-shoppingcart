@@ -30,7 +30,7 @@ class Server{
     }
 
     private start(){
-        this.app.listen(parseInt(process.env.API_PORT!), process.env.API_HOST!, ()=>{
+        this.app.listen(3000, '10.153.90.219', ()=>{
             console.log(`Listen on http://${process.env.API_HOST}:${process.env.API_PORT}/`);
         });
     }

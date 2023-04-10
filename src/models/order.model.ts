@@ -6,9 +6,7 @@ const OrderModel = db.model('Order', new mongoose.Schema({
     product: [
       {
         id_product: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        unitPrice:{type: Number,required:true},
-        discount:{type: Number,required:true},
+        quantity: { type: Number, required: true }
       }
     ],
 }));
