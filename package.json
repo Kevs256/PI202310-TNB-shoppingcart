@@ -1,5 +1,5 @@
 {
-  "name": "pi202310-tnb-shoppingcart",
+  "name": "shopping-cart",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,17 +8,9 @@
     "start": "node ./dist/index.js",
     "build": "tsc"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kevs256/PI202310-TNB-shoppingcart.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Kevs256/PI202310-TNB-shoppingcart/issues"
-  },
-  "homepage": "https://github.com/Kevs256/PI202310-TNB-shoppingcart#readme",
   "dependencies": {
     "@types/cors": "^2.8.13",
     "cors": "^2.8.5",
