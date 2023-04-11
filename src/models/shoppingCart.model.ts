@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import db from '../database/mongo.db.js';
 
-const OrderModel = db.model('Order', new mongoose.Schema({
+const OrderModel = mongoose.model('Order', new mongoose.Schema({
     id_user: { type: String, required: true },
     product: [
       {
