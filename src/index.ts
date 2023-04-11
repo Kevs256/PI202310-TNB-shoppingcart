@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import morgan from 'morgan';
 import cors from 'cors';
 import shoppingCartRouter from './router/shoppingCart.router.js';
+import mongoDb from './database/mongo.db.js';
 
 class Server{
 
     private app: express.Express
-    
+
     constructor(){
         this.app = express();
         this.config();
@@ -17,22 +17,20 @@ class Server{
 
     private config(){
         dotenv.config();
+        new mongoDb().connect();
         this.app.use(cors({
             origin: process.env.CLIENT_HOST! || '*',
             credentials: true
         }));
         this.app.use(express.json());
-        this.app.use(morgan('dev'));
     }
 
     private routes(){
-        this.app.use(shoppingCartRouter.router);
+        this.app.use('/cart',new shoppingCartRouter().router);
     }
 
     private start(){
-        this.app.listen(3000, '10.153.90.219', ()=>{
-            console.log(`Listen on http://${process.env.API_HOST}:${process.env.API_PORT}/`);
-        });
+        this.app.listen(parseInt(process.env.API_PORT || '3000'));
     }
 }
 
