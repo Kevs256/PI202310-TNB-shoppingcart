@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import db from '../database/mongo.db.js';
 
-const InvoiceModel = db.model('Facturas', new mongoose.Schema({
+const InvoiceModel = mongoose.model('Facturas', new mongoose.Schema({
     _id: String,
     id_user: String,
     date: String,
