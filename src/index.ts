@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import shoppingCartRouter from './router/shoppingCart.router.js';
 import mongoDb from './database/mongo.db.js';
+import wishListRouter from './router/wishList.router.js';
 
 class Server{
 
@@ -27,6 +28,7 @@ class Server{
 
     private routes(){
         this.app.use('/cart',new shoppingCartRouter().router);
+        this.app.use('/wishlist',new wishListRouter().router);
     }
 
     private start(){
