@@ -24,6 +24,18 @@ const setWishlist = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const getAllWhislists = async (req: Request, res: Response, next: NextFunction) => {
+    const {id_user} = req.params;
+    try {
+        const wishlist = await WishlistModel.findOne({id_user});
+        res.status(200).json({ status: true, data: wishlist });
+    } catch (error) {
+        res.status(500).json({ status: false });
+    }
+}
+
+
 export default {
-    setWishlist
+    setWishlist,
+    getAllWhislists
 }
