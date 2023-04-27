@@ -3,8 +3,7 @@ import WishlistModel from '../models/wishList.model.js';
 
 const setWishlist = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {id_user} = req.params;
-        const {id_product} = req.body;
+        const {id_user, id_product} = req.params;
         const wishlist = await WishlistModel.findOne({id_user});
         if(!wishlist){
             await WishlistModel.create({
@@ -68,8 +67,7 @@ const getAllWhislists = async (req: Request, res: Response, next: NextFunction) 
 
 const deleteWishlist = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id_user } = req.params;
-        const { id_product } = req.body;
+        const { id_user, id_product } = req.params;
         const wishlist = await WishlistModel.findOne({ id_user });
         if (!wishlist) {
             return res.status(401).json({ status: false, message: "No existe la lista de deseos" });
