@@ -12,7 +12,8 @@ export default class wishListRouter {
 
     private config(){
         this.router.route('/:id_user').put(wishListController.setWishlist); 
-        this.router.route('/:id_user').get(wishListController.getAllWhislists)
+        this.router.route('/:id_user').get(wishListController.getAllWhislists);
+        this.router.route('/delete/:id_user').put(wishListController.deleteWishlist);
     }
 
 }

@@ -40,7 +40,30 @@ const getOrderById = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
+const deleteShoppingCart = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id_user } = req.params;
+        const { id_product } = req.body;
+        const order = await orderModel.findOne({ id_user });
+        if (!order) {
+            return res.status(404).json({ status: false, message: "Cart not found" });
+        }
+        const idx = order.product.findIndex((product) => product.id_product === id_product);
+        if (idx === -1) {
+            return res.status(404).json({ status: false, message: "Product not found" });
+        }
+        order.product.splice(idx, 1);
+        await order.save();
+        return res.status(200).json({ status: true, message: "Product deleted successfully" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ status: false, message: "Internal server error" });
+    }
+};
+
+
 export default {
     setQuantityShoppingCart,
-    getOrderById
+    getOrderById,
+    deleteShoppingCart
 }

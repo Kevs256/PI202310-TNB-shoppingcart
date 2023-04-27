@@ -14,6 +14,7 @@ export default class shoppingCartRouter {
     private config(){
         this.router.route('/:id_user').get(shoppingCartController.getOrderById);
         this.router.route('/:id_user').put(shoppingCartController.setQuantityShoppingCart); 
+        this.router.route('/delete/:id_user').put(shoppingCartController.deleteShoppingCart);
     }
 
 }
