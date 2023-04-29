@@ -1,5 +1,5 @@
+import wishlistController from "../controllers/wishlist.controller.js";
 import { Router } from "express";
-import wishListController from "../controllers/wishList.controller";
 
 export default class wishListRouter {
 
@@ -11,9 +11,9 @@ export default class wishListRouter {
     }
 
     private config(){
-        this.router.route('/:id_user').get(wishListController.getAllWhislists);
-        this.router.route('/:id_user/product/:id_product').put(wishListController.setWishlist); 
-        this.router.route('/:id_user/product/:id_product').delete(wishListController.deleteWishlist);
+        this.router.route('/:id_user').get(wishlistController.getWishListByPage);
+        this.router.route('/:id_user/products/:id_product').get(wishlistController.getIfProductInWishlist); 
+        this.router.route('/:id_user/products/:id_product').put(wishlistController.setWishlist); 
     }
 
 }

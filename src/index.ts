@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
-import shoppingCartRouter from './router/shoppingCart.router.js';
-import mongoDb from './database/database.js';
-import wishListRouter from './router/wishList.router.js';
+import cartRouter from './router/cart.router.js';
+import wishlistRouter from './router/wishlist.router.js';
 
 class Server{
 
@@ -17,8 +17,6 @@ class Server{
     }
 
     private config(){
-        dotenv.config();
-        new mongoDb().connect();
         this.app.use(cors({
             origin: process.env.CLIENT_HOST! || '*',
             credentials: true
@@ -27,8 +25,8 @@ class Server{
     }
 
     private routes(){
-        this.app.use('/cart',new shoppingCartRouter().router);
-        this.app.use('/wishlist',new wishListRouter().router);
+        this.app.use('/cart', new cartRouter().router);
+        this.app.use('/wishlist', new wishlistRouter().router);
     }
 
     private start(){
