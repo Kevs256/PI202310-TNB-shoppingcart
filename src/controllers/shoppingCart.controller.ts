@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import orderModel from '../models/shoppingCart.model.js';
+import orderModel from '../models/order.model.js';
 
 const setQuantityShoppingCart = async (req: Request, res: Response, next: NextFunction) => {
     try {

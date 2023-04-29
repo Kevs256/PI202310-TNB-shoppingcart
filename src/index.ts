@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import shoppingCartRouter from './router/shoppingCart.router.js';
-import mongoDb from './database/mongo.db.js';
+import mongoDb from './database/database.js';
 import wishListRouter from './router/wishList.router.js';
 
 class Server{
