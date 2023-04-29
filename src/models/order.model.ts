@@ -12,7 +12,7 @@ type OrderProductsModelStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): OrderProductsInstance;
 };
 
-const orderModel = db.define('order', {
+export const orderModel = db.define('order', {
     id_order: {
       primaryKey: true,
       type: DataTypes.NUMBER,
@@ -24,30 +24,21 @@ const orderModel = db.define('order', {
     timestamps: false
 }) as OrderModelStatic;
 
-const orderProductsModel = db.define('order', {
+export const orderProductsModel = db.define('order_products', {
   id_order_products: {
     primaryKey: true,
     type: DataTypes.NUMBER,
     autoIncrement: true
   },
   id_product: DataTypes.STRING,
-  type: DataTypes.STRING,
   quantity: DataTypes.NUMBER,
   unit_price: DataTypes.NUMBER,
   discount: DataTypes.NUMBER,
-  id_order: {
-    type: DataTypes.NUMBER,
-    references: {
-      model: 'order',
-      key: 'id_order'
-    }
-  },
+  id_order: DataTypes.NUMBER
 }, {
   freezeTableName: true,
   timestamps: false
 }) as OrderProductsModelStatic;
 
-export default {
-  orderModel,
-  orderProductsModel
-}
+orderModel.hasMany(orderProductsModel, { foreignKey: 'id_order' });
+orderProductsModel.belongsTo(orderModel, { foreignKey: 'id_order' });

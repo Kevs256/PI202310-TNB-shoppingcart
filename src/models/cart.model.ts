@@ -12,7 +12,7 @@ type CartProductsModelStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): CartProductsInstance;
 };
 
-const cartModel = db.define('cart', {
+export const cartModel = db.define('cart', {
     id_cart: {
       primaryKey: true,
       type: DataTypes.NUMBER,
@@ -24,28 +24,19 @@ const cartModel = db.define('cart', {
     timestamps: false
 }) as CartModelStatic;
 
-const cartProductsModel = db.define('cart', {
+export const cartProductsModel = db.define('cart_products', {
   id_cart_products: {
     primaryKey: true,
     type: DataTypes.NUMBER,
     autoIncrement: true
   },
   quantity: DataTypes.NUMBER,
-  type: DataTypes.STRING,
   id_product: DataTypes.STRING,
-  id_cart: {
-    type: DataTypes.NUMBER,
-    references: {
-      model: 'cart',
-      key: 'id_cart'
-    }
-  },
+  id_cart: DataTypes.NUMBER,
 }, {
   freezeTableName: true,
   timestamps: false
 }) as CartProductsModelStatic;
 
-export default {
-  cartModel,
-  cartProductsModel
-}
+cartModel.hasMany(cartProductsModel, { foreignKey: 'id_cart' });
+cartProductsModel.belongsTo(cartModel, { foreignKey: 'id_cart' });

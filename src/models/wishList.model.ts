@@ -24,23 +24,18 @@ export const wishlistModel = db.define('wishlist', {
     timestamps: false
 }) as WishlistModelStatic;
 
-export const wishlistProductsModel = db.define('cart', {
+export const wishlistProductsModel = db.define('wishlist_products', {
     id_wishlist_products: {
     primaryKey: true,
     type: DataTypes.NUMBER,
     autoIncrement: true
   },
   id_product: DataTypes.STRING,
-  type: DataTypes.STRING,
-  id_wishlist: {
-    type: DataTypes.NUMBER,
-    references: {
-      model: 'wishlist',
-      key: 'id_wishlist'
-    }
-  },
+  id_wishlist: DataTypes.NUMBER
 }, {
   freezeTableName: true,
   timestamps: false
 }) as WishlistProductsModelStatic;
 
+wishlistModel.hasMany(wishlistProductsModel, { foreignKey: 'id_wishlist' });
+wishlistProductsModel.belongsTo(wishlistModel, { foreignKey: 'id_wishlist' });
