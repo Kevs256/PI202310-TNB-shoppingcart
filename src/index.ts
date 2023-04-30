@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import cartRouter from './router/cart.router.js';
 import wishlistRouter from './router/wishlist.router.js';
+import orderRouter from './router/order.router.js';
 
 class Server{
 
@@ -27,6 +28,7 @@ class Server{
     private routes(){
         this.app.use('/cart', new cartRouter().router);
         this.app.use('/wishlist', new wishlistRouter().router);
+        this.app.use('/order', new orderRouter().router);
     }
 
     private start(){

@@ -12,7 +12,7 @@ type OrderProductsModelStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): OrderProductsInstance;
 };
 
-export const orderModel = db.define('order', {
+export const orderModel = db.define('orders', {
     id_order: {
       primaryKey: true,
       type: DataTypes.NUMBER,
