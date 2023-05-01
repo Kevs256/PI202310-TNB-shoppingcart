@@ -3,7 +3,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cartRouter from './router/cart.router.js';
-import wishlistRouter from './router/wishlist.router.js';
+import wishlistRouter from './router/wishList.router.js';
 import orderRouter from './router/order.router.js';
 
 class Server{

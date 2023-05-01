@@ -1,4 +1,4 @@
-import wishlistController from "../controllers/wishlist.controller.js";
+import wishlistController from "../controllers/wishList.controller.js";
 import { Router } from "express";
 
 export default class wishListRouter {

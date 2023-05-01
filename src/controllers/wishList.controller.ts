@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { wishlistModel, wishlistProductsModel} from '../models/wishlist.model.js';
+import { wishlistModel, wishlistProductsModel} from '../models/wishList.model.js';
 
 
 const setWishlist = async (req: Request, res: Response, next: NextFunction) => {
