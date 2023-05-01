@@ -37,10 +37,18 @@ const createOrderFromCart = async (req: Request, res: Response, next: NextFuncti
     try {
         const {id_user} = req.params;
         
+        const cart = await cartModel.findOne({
+            where: {id_user}
+        });
+
+        if(!cart){
+            return res.status(401).json({status: true, message: 'No shopping cart'});
+        }
+
         const products = await cartProductsModel.findAll({
             include: [{
                 model: cartModel,
-                where: { id_user },
+                where: { id_cart: cart?.id_cart },
                 attributes: []
             }],
             attributes: ['id_product', 'quantity']
@@ -65,6 +73,9 @@ const createOrderFromCart = async (req: Request, res: Response, next: NextFuncti
             }
         }
         await inventoryService.addProducts(id_user, products);
+        await cartProductsModel.destroy({
+            where: {id_cart: cart.id_cart}
+        });
         res.status(200).json({status: true, data: {order, products: _products}});
     } catch(error){
         res.status(500).json({status: false, message: "Internal error server"});
