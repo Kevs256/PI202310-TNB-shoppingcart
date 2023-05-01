@@ -12,10 +12,10 @@ export default class orderRouter {
     }
 
     private config(){
-        this.router.route('/:id_user/orders').post(orderController.createOrder);
-        this.router.route('/:id_user/orders').get(orderController.getOrdersByUser);
-        this.router.route('/:id_user/orders/cart').post(orderController.createOrderFromCart);
-        this.router.route('/:id_user/orders/:id_order').get(orderController.getOrderById);
+        this.router.route('/:id_user').post(orderController.createOrder);
+        this.router.route('/:id_user').get(orderController.getOrdersByUser);
+        this.router.route('/:id_user/cart').post(orderController.createOrderFromCart);
+        this.router.route('/:id_user/:id_order').get(orderController.getOrderById);
     }
 
 }
