@@ -2,12 +2,12 @@ import {Model, DataTypes, BuildOptions} from 'sequelize';
 import db from '../database/database.js';
 import { IOrder, IOrder_products } from 'interfaces/IOrder.js';
 
-interface OrderInstance extends Model<IOrder>, IOrder {}
+export interface OrderInstance extends Model<IOrder>, IOrder {}
 type OrderModelStatic = typeof Model & {
   new (values?: object, options?: BuildOptions):OrderInstance;
 };
 
-interface OrderProductsInstance extends Model<IOrder_products>, IOrder_products {}
+export interface OrderProductsInstance extends Model<IOrder_products>, IOrder_products {}
 type OrderProductsModelStatic = typeof Model & {
   new (values?: object, options?: BuildOptions): OrderProductsInstance;
 };

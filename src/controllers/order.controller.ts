@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { orderModel, orderProductsModel } from '../models/order.model';
+import { OrderProductsInstance, orderModel, orderProductsModel } from '../models/order.model';
 import sequelize from '../database/database';
 import axios from 'axios';
 import IProduct, {IProductInventory} from '../interfaces/IProduct';
@@ -13,7 +13,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
         const products = req.body.products as IProductInventory[];
 
         const order = await orderModel.create({id_user});
-        const _products = [];
+        const _products:OrderProductsInstance[] = [];
         for(let i=0;i<products.length;i++){
             const product = await productsService.getById(products[i].id_product)
             if(product){
@@ -52,7 +52,7 @@ const createOrderFromCart = async (req: Request, res: Response, next: NextFuncti
         }
 
         const order = await orderModel.create({id_user});
-        const _products = [];
+        const _products:OrderProductsInstance[] = [];
         for(let i=0;i<products.length;i++){
             const product = await productsService.getById(products[i].id_product)
             if(product){
