@@ -7,7 +7,7 @@ class inventoryService{
     baseUrl: string
 
     constructor(){
-        this.baseUrl = `${process.env.URL_API_PRODUCTS}/inventory`
+        this.baseUrl = `${process.env.URL_API_INVENTORY}/inventory`
     }
 
     addProducts(id_user:string, products:IProductInventory[]): Promise<IProduct>{
