@@ -1,5 +1,5 @@
 import axios from "axios";
-import IProduct from "interfaces/IProduct";
+import IProduct from "../interfaces/IProduct";
 
 
 class productService{

@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderProductsInstance, orderModel, orderProductsModel } from '../models/order.model';
 import sequelize from '../database/database';
-import axios from 'axios';
-import IProduct, {IProductInventory} from '../interfaces/IProduct';
+import {IProductInventory} from '../interfaces/IProduct';
 import { cartModel, cartProductsModel } from '../models/cart.model';
-import productsService from 'services/products.service';
-import inventoryService from 'services/inventory.service';
+import productsService from '../services/products.service';
+import inventoryService from '../services/inventory.service';
 
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
