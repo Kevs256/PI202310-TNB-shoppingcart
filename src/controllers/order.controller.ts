@@ -2,28 +2,31 @@ import { Request, Response, NextFunction } from 'express';
 import { orderModel, orderProductsModel } from '../models/order.model';
 import sequelize from '../database/database';
 import axios from 'axios';
-import IProduct from '../interfaces/IProduct';
+import IProduct, {IProductInventory} from '../interfaces/IProduct';
 import { cartModel, cartProductsModel } from '../models/cart.model';
+import productsService from 'services/products.service';
+import inventoryService from 'services/inventory.service';
 
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {id_user} = req.params;
-        const products = req.body.products as {id_product:string, quantity:string}[];
+        const products = req.body.products as IProductInventory[];
 
         const order = await orderModel.create({id_user});
         const _products = [];
         for(let i=0;i<products.length;i++){
-            const {data} = await axios.get(`${process.env.URL_API_PRODUCTS}/products/${products[i].id_product}`);
-            if(data){
-                const product:IProduct = data.data;
+            const product = await productsService.getById(products[i].id_product)
+            if(product){
                 const _product = await orderProductsModel.create({
                     id_product: products[i].id_product, id_order: order.id_order!,
-                    unit_price: product.price, quantity: parseInt(products[i].quantity),
+                    unit_price: product.price, quantity: products[i].quantity,
                     discount: product.discount,
                 });
+                await productsService.addStock(products[i].id_product, -products[i].quantity);
                 _products.push(_product);
             }
         }
+        await inventoryService.addProducts(id_user, products);
         res.status(200).json({status: true, data: {order, products: _products}});
     } catch(error){
         console.log(error);
@@ -51,18 +54,18 @@ const createOrderFromCart = async (req: Request, res: Response, next: NextFuncti
         const order = await orderModel.create({id_user});
         const _products = [];
         for(let i=0;i<products.length;i++){
-            const {data} = await axios.get(`${process.env.URL_API_PRODUCTS}/products/${products[i].id_product}`);
-            if(data){
-                const product:IProduct = data.data;
+            const product = await productsService.getById(products[i].id_product)
+            if(product){
                 const _product = await orderProductsModel.create({
                     id_product: products[i].id_product, id_order: order.id_order!,
                     unit_price: product.price, quantity: products[i].quantity,
                     discount: product.discount,
                 });
+                await productsService.addStock(products[i].id_product, -products[i].quantity);
                 _products.push(_product);
             }
         }
-
+        await inventoryService.addProducts(id_user, products);
         res.status(200).json({status: true, data: {order, products: _products}});
     } catch(error){
         res.status(500).json({status: false, message: "Internal error server"});
