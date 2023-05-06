@@ -76,7 +76,16 @@ const getWishListByPage = async (req: Request, res: Response, next: NextFunction
             limit: 6,
             offset: _offset,
         });
-        return res.status(201).json({ success: true, data: products.map(product=>product.id_product) });
+        const pages = await wishlistProductsModel.count({
+            include: [{
+                model: wishlistModel,
+                where: {id_user}
+            }]
+        });
+        return res.status(201).json({ success: true, data: {
+            products :products.map(product=>product.id_product),
+            pages: Math.ceil(pages/6)
+        } });
     } catch (error) {
         res.status(500).json({ status: false });
     }
